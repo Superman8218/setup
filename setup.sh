@@ -18,6 +18,7 @@ ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/.bash_aliases .
 ln -sf dotfiles/.emacs.d .
 ln -sb dotfiles/.vimrc .
 ln -sb dotfiles/.tmux.conf .
