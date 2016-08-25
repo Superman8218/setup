@@ -22,3 +22,13 @@ ln -sb dotfiles/.bash_aliases .
 ln -sf dotfiles/.emacs.d .
 ln -sb dotfiles/.vimrc .
 ln -sb dotfiles/.tmux.conf .
+ln -sb dotfiles/.Xresources .
+ln -sb dotfiles/.Xresources.d .
+
+# Install Vundle and .vim folder
+
+if [ ! -d ./.vim/ ]; then
+    git clone https://github.com/Superman8218/vim.git .vim
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+fi 
