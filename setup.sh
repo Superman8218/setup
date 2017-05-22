@@ -52,29 +52,41 @@ ln -sb dotfiles/.vimrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.Xresources .
 ln -sb dotfiles/.Xresources.d .
+ln -sb dotfiles/.xinitrc
 ln -sb dotfiles/.envars .
-ln -sb dotfiles/.i3config .config/i3/config
+ln -sb dotfiles/.i3/config ./.i3
 
 # Install Vundle and .vim folder
 
 if [ ! -d ./.vim/ ];
 then
     git clone https://github.com/Superman8218/vim.git .vim
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
 else
     cd ~/.vim/
     git pull
     cd $HOME
 fi 
 
-# Install Emerald Dependencies
+if [ ! -d ./.vim/Vundle.vim ];
+then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+else
+    cd ~/.vim/
+    git pull
+    cd $HOME
+fi
 
-dnf install postgresql
-dnf install postgresql-devel
-dnf install postgresql-server
-dnf install redhat-rpm-config
-dnf install python-devel
+
+if [ ! -d ./.vim/colors ];
+then
+    git clone https://github.com/Superman8218/vim.git/colors ~/.vim
+    vim +PluginInstall +qall
+else
+    cd ~/.vim/
+    git pull
+    cd $HOME
+fi
 
 # To get Postgres to run, this command must be run as the postgres user
 # su postgres
