@@ -10,22 +10,21 @@
 
 cd $HOME
 
-# Upgrade pip
+#Install packages
 
-pip install --upgrade pip
+sudo xargs apt-get install -y <setup/packages.txt
+sudo xargs apt-get install -y <setup/misc.txt
 
-# Install virtual environments:
-# 1. Install the pip packages
-# 2. Get latest environments from git
+# Set default shell
 
-pip install virtualenv
-pip install virtualenvwrapper
+chsh -s $(which zsh)
 
+# Virtual environments
 
 if [ ! -d ./envs/ ];
 then
-    git clone https://github.com/Superman8218/envs.git
-else
+    git clone git@github.com:Superman8218/envs.git
+	sudo chown -R $USER:$USER envs else
     cd ~/envs/
     git pull
     cd $HOME
@@ -35,7 +34,8 @@ fi
 
 if [ ! -d ./dotfiles/ ];
 then
-    git clone https://github.com/Superman8218/dotfiles.git
+    git clone git@github.com:Superman8218/dotfiles.git
+	sudo chown -R $USER:$USER dotfiles
 else
     cd ~/dotfiles/
     git pull
@@ -54,42 +54,42 @@ ln -sb dotfiles/.Xresources .
 ln -sb dotfiles/.Xresources.d .
 ln -sb dotfiles/.xinitrc
 ln -sb dotfiles/.envars .
-ln -sb dotfiles/.i3/config ./.i3
+ln -sb dotfiles/.gitconfig .
+ln -sbd dotfiles/.i3 .
+ln -sb dotfiles/.zshrc .
+ln -sbd dotfiles/.oh-my-zsh .
 
 # Install Vundle and .vim folder
 
 if [ ! -d ./.vim/ ];
 then
-    git clone https://github.com/Superman8218/vim.git .vim
+    git clone --recursive git@github.com:Superman8218/vim.git .vim
+	# I don't know why this needs to be done, but apparently it does
+	sudo rm -rf .vim/bundle/vim-bad-whitespace
+	sudo chown -R $USER:$USER .vim
 else
     cd ~/.vim/
     git pull
     cd $HOME
-fi 
+fi
 
-if [ ! -d ./.vim/Vundle.vim ];
+if [ ! -d ./.vim/bundle/Vundle.vim ];
 then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
 else
     cd ~/.vim/
     git pull
     cd $HOME
 fi
 
+# Generate ssh key
 
-if [ ! -d ./.vim/colors ];
+if [ ! -d ./.ssh ];
 then
-    git clone https://github.com/Superman8218/vim.git/colors ~/.vim
-    vim +PluginInstall +qall
-else
-    cd ~/.vim/
-    git pull
-    cd $HOME
+	mkdir .ssh
 fi
 
-# To get Postgres to run, this command must be run as the postgres user
-# su postgres
-# pg_ctl start -D /var/lib/pgsql/data
-# su root
-
+if [ ! -f ./.ssh/id_rsa.pub ];
+then
+	ssh-keygen -t rsa -b 4096 -C "zac.yauney@gmail.com"
+fi
