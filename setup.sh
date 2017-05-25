@@ -34,7 +34,7 @@ fi
 
 if [ ! -d ./dotfiles/ ];
 then
-    git clone git@github.com:Superman8218/dotfiles.git
+    git clone --recursive git@github.com:Superman8218/dotfiles.git
 	sudo chown -R $USER:$USER dotfiles
 else
     cd ~/dotfiles/
@@ -58,24 +58,13 @@ ln -sb dotfiles/.gitconfig .
 ln -sbd dotfiles/.i3 .
 ln -sb dotfiles/.zshrc .
 ln -sbd dotfiles/.oh-my-zsh .
+ln -sbd dotfiles/.vim .
 
 # Install Vundle and .vim folder
 
-if [ ! -d ./.vim/ ];
+if [ ! -d ./dotfiles/.vim/bundle/Vundle.vim ];
 then
-    git clone --recursive git@github.com:Superman8218/vim.git .vim
-	# I don't know why this needs to be done, but apparently it does
-	sudo rm -rf .vim/bundle/vim-bad-whitespace
-	sudo chown -R $USER:$USER .vim
-else
-    cd ~/.vim/
-    git pull
-    cd $HOME
-fi
-
-if [ ! -d ./.vim/bundle/Vundle.vim ];
-then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/dotfiles/.vim/bundle/Vundle.vim
 else
     cd ~/.vim/
     git pull

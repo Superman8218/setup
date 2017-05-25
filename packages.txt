@@ -6,6 +6,8 @@ rxvt-unicode-256color
 ranger
 zsh
 curl
+xclip
+xsel
 
 build-essential
 cmake
