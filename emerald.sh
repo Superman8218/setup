@@ -21,11 +21,18 @@ then
 	rm get_pip.py
 fi
 
-su root
-pip install virtualenv
-pip install virtualenvwrapper
-exit
+sudo pip install virtualenv
+sudo pip install virtualenvwrapper
 
 sudo apt-get install -y postgresql
 sudo apt-get install -y postgresql-contrib
 sudo apt-get install -y libpq-dev
+
+python manage.py makemigrations
+python manage.py migrate
+
+cat <<EOF | python manage.py shell
+from accounts.models import EmeraldUser
+EmeraldUser.objects.filter(email="zac.yauney@gmail.com").exists() or \
+    EmeraldUser.objects.create_superuser(email="zac.yauney@gmail.com", password="confidence")
+EOF
