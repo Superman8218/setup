@@ -1,12 +1,8 @@
 #!/bin/bash
 # Zac's Ubuntu Setup Script
 
-# Things that are generally important to have
-
+# Things that are generally important to have 
 # For now these are commented out because they need to be idempotent
-
-#sudo apt-get install -y curl
-#sudo apt-get install pip
 
 cd $HOME
 
