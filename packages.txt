@@ -1,8 +1,7 @@
 vim
 python
 tmux
-i3
-rxvt-unicode-256color
+rxvt-unicode
 ranger
 zsh
 curl
