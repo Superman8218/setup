@@ -8,6 +8,7 @@ curl
 xclip
 xsel
 midori
+thunar
 
 build-essential
 cmake
